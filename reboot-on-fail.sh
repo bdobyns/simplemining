@@ -25,12 +25,16 @@ elif [ $CURRENT_HASHRATE -le $MINHASHRATE ] ; then
 	    echo $[ $HOWMANY + 1 ] >>$HOWMANY_FILE
 	fi   
     fi   
+    echo -n hashRate at or below $MINHASHRATE for $( cat $HOWMANY_FILE ) minutes. >>/var/tmp/consoleSys.log
+    date >>/var/tmp/consoleSys.log
     echo -n hashRate at or below $MINHASHRATE for $( cat $HOWMANY_FILE ) minutes. >>${HOWMANY_FILE}.log   
     date >>${HOWMANY_FILE}.log 
 else     
     if [ -z $HOWMANY ] || [ $HOWMANY -ne 0 ] ; then
         echo -n hashRate back to $CURRENT_HASHRATE after $( cat $HOWMANY_FILE ) minutes. >>${HOWMANY_FILE}.log         
 	date >>${HOWMANY_FILE}.log     
+        echo -n hashRate back to $CURRENT_HASHRATE after $( cat $HOWMANY_FILE ) minutes. >>/var/tmp/consoleSys.log
+	date >>/var/tmp/consoleSys.log
     fi     
     echo 0 > $HOWMANY_FILE 
 fi
