@@ -16,7 +16,9 @@ elif [ $CURRENT_HASHRATE -le $MINHASHRATE ] ; then
         if [ $HOWMANY -ge $TOOMANY ] ; then
      	    rm $HOWMANY 	
 	    echo -n hashRate at or below $MINHASHRATE for $HOWMANY minutes. rebooted on >>${HOWMANY_FILE}.log 	
-	    date >>${HOWMANY_FILE}.log         
+ 	    date >>${HOWMANY_FILE}.log         
+	    echo -n hashRate at or below $MINHASHRATE for $HOWMANY minutes. rebooted on >> /var/tmp/consoleSys.log  
+	    date >> /var/tmp/consoleSys.log  
 	    sync; sync; sync; sync
 	    sudo reboot     
 	else
