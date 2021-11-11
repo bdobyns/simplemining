@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ~  
-TOOLONG=15 # it takes a few minutes to get everything stable after a reboot.
-MIN_MHS=1 # at least one GPU running, even if not LHR mode
+TOOLONG=7 # it takes a few minutes to get everything stable after a reboot.
+MIN_MHS=5 # at least one GPU running, even if not LHR mode
 HOWLONG_FILE=~/badhashes  
 
 logmsg() {
