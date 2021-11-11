@@ -1,23 +1,30 @@
 #!/bin/bash
 cd ~  
-TOOMANY=10 
+TOOMANY=5
 MINHASHRATE=20
 HOWMANY_FILE=~/badhashes  
 CURRENT_HASHRATE=`curl -s localhost:4444 2>/dev/null | jq .Session.Performance_Summary | cut -f 1 -d .`
 HOWMANY=`cat $HOWMANY_FILE`  
 
 logmsg() {
-     echo -n $* >>${HOWMANY_FILE}.log
+     echo -n $* " ">>${HOWMANY_FILE}.log
      date >>${HOWMANY_FILE}.log
      
-     echo -n $* >>/var/tmp/consoleSys.log
+     echo -n $* " ">>/var/tmp/consoleSys.log
      date >>/var/tmp/consoleSys.log
 }
 
 if [ -z $CURRENT_HASHRATE ] ; then
-    # starting up
-    echo 0 > $HOWMANY_FILE
-elif [ $CURRENT_HASHRATE -le $MINHASHRATE ] ; then
+    # starting up, or not running
+    logmsg hashRate is null 
+    CURRENT_HASHRATE=0
+fi
+
+if [ -z $HOWMANY ] ; then
+    HOWMANY=0
+fi
+
+if [ $CURRENT_HASHRATE -le $MINHASHRATE ] ; then
     if [ ! -e $HOWMANY_FILE ] ; then
         echo 1 > $HOWMANY_FILE   
     else
@@ -25,9 +32,10 @@ elif [ $CURRENT_HASHRATE -le $MINHASHRATE ] ; then
      	    rm $HOWMANY 	
 	    logmsg hashRate at or below $MINHASHRATE for $HOWMANY minutes. rebooted on 
 	    sync; sync; sync; sync
+	    rm $HOWMANY_FILE
 	    sudo reboot     
 	else
-	    echo $[ $HOWMANY + 1 ] >>$HOWMANY_FILE
+	    echo $[ $HOWMANY + 1 ] >$HOWMANY_FILE
 	fi   
     fi   
     logmsg hashRate at or below $MINHASHRATE for $( cat $HOWMANY_FILE ) minutes. 
