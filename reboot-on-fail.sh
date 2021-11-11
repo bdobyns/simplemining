@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ~  
-TOOLONG=10 # it takes a few minutes to get everything stable after a reboot.
-MIN_MHS=26 # at least one GPU running, even if not LHR mode
+TOOLONG=15 # it takes a few minutes to get everything stable after a reboot.
+MIN_MHS=1 # at least one GPU running, even if not LHR mode
 HOWLONG_FILE=~/badhashes  
 
 logmsg() {
@@ -41,7 +41,7 @@ if [ $CURRENT_MHS -le $MIN_MHS ] ; then
         echo $HOWLONG > $HOWLONG_FILE   
     else
         if [ ! -z $HOWLONG ] && [ $HOWLONG -ge $TOOLONG ] ; then
-	    logmsg hashRate at or below $MIN_MHS for $HOWLONG minutes. rebooted because we exceeded $TOOLONG minutes.
+	    logmsg hashRate $CURRENT_MHS below $MIN_MHS for $HOWLONG minutes. rebooted because we exceeded $TOOLONG minutes.
 	    rm $HOWLONG_FILE
 	    sync; sync; sync; sync
 	    sudo reboot     
@@ -50,7 +50,7 @@ if [ $CURRENT_MHS -le $MIN_MHS ] ; then
 	    echo $HOWLONG >$HOWLONG_FILE
 	fi   
     fi   
-    logmsg hashRate at or below $MIN_MHS for $HOWLONG minutes. 
+    logmsg hashRate $CURRENT_MHS below $MIN_MHS for $HOWLONG minutes. 
 else     
     if [ $HOWLONG -ne 1 ] ; then
         logmsg hashRate back to $CURRENT_MHS after $HOWLONG minutes.
