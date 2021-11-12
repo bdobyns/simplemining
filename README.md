@@ -1,7 +1,7 @@
 # simplemining
 addons to simplemining.net crypto os
 
-# **reboot-on-fail.sh** is
+# **reboot-on-fail.sh** 
 
 * used to reboot when the hasrate falls below a threshold value.  
 * This can happen if your network conenction drops (wifi) and doesn't recover, or for other indeterminate reasons.  
