@@ -13,6 +13,7 @@ logmsg() {
 if [ ! -e /var/tmp/rigStarted.run ] ; then
     # the rig is not running properly.  
     # don't reboot and get into a loop
+    logmsg the rig is not started properly yet
     rm $HOWLONG_FILE
     exit
 fi
@@ -21,7 +22,7 @@ fi
 # CURRENT_MHS=`curl -s localhost:4444 2>/dev/null | jq .Session.Performance_Summary | cut -f 1 -d .`
 CURRENT_HASH_SEC=`/root/utils/stats_rig.sh | jq -r .hash | cut -f 1 -d . `
 if [ -z $CURRENT_HASH_SEC ] ; then
-    # starting up, or not running
+    # shoud only be null if starting up, or not running
     logmsg 'hashRate is null (can not find miner?)'
     CURRENT_MHS=0
 else
