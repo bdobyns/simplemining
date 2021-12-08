@@ -1,8 +1,15 @@
 #!/bin/bash
+# expects to run as miner in /home/miner
 cd ~  
-TOOLONG=7 # it takes a few minutes to get everything stable after a reboot.
-MIN_MHS=5 # at least one GPU running, even if not LHR mode
+TOOLONG=$( cat config.json | jq -r .srrSerial )  # misuse the SRR variables
+MIN_MHS=$( cat config.json | jq -r .srrSlot )    # since we don't have an SRR
+
+if [ -z $TOOLONG ] || [ -z $MIN_MHS ] || [ $TOOLONG -lt 2 ] || [ $MIN_MHS -lt 2 ] ; then 
+    TOOLONG=10 # it takes a few minutes to get everything stable after a reboot.
+    MIN_MHS=6 # at least one GPU running, even if not LHR mode
+fi
 HOWLONG_FILE=~/badhashes  
+TZ='America/New_York' ; export TZ
 
 logmsg() {
      NOW=$( date '+%Y-%m-%d %H:%M:%S' )
@@ -20,6 +27,8 @@ fi
 
 # lolminer only for .Session.Performance_Summary
 # CURRENT_MHS=`curl -s localhost:4444 2>/dev/null | jq .Session.Performance_Summary | cut -f 1 -d .`
+
+# this works right no matter which miner we use
 CURRENT_HASH_SEC=`/root/utils/stats_rig.sh | jq -r .hash | cut -f 1 -d . `
 if [ -z $CURRENT_HASH_SEC ] ; then
     # shoud only be null if starting up, or not running
