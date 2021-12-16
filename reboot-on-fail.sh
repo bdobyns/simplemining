@@ -4,7 +4,7 @@ cd ~
 TOOLONG=$( cat config.json | jq -r .srrSerial )  # misuse the SRR variables
 MIN_MHS=$( cat config.json | jq -r .srrSlot )    # since we don't have an SRR
 
-if [ -z $TOOLONG ] || [ -z $MIN_MHS ] || [ $TOOLONG -lt 2 ] || [ $MIN_MHS -lt 2 ] ; then 
+if [ -z $TOOLONG ] || [ -z $MIN_MHS ] || [ $TOOLONG -lt 2 ] || [ $MIN_MHS -lt 1 ] ; then
     TOOLONG=10 # it takes a few minutes to get everything stable after a reboot.
     MIN_MHS=6 # at least one GPU running, even if not LHR mode
 fi
