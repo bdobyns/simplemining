@@ -18,3 +18,4 @@ fi
 TZ='America/New_York' ; export TZ 
 MINERDIR=$( echo /root/miner/* | head -1 )
 PATH=/root/utils:${PATH}:${MINERDIR}; export PATH
+WALLETRVN=RULZGGmeARHMpJKJWPbYAu29j6YaP3ushZ

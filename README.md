@@ -17,3 +17,10 @@ addons to simplemining.net crypto os
 * a crontab file that runs reboot-on-fail.sh every minute
 * uses logrotate to control the size of the logfile
 
+# It's Free, you know
+
+but if you found it useful you can donate to
+
+ETH: bad000f10e937680538823e8eb3966dfd80ffce8
+
+RVN: RKQDSrf4o6FAh8ba8FvYLmUz82H6fTaVnB
